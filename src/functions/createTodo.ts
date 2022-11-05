@@ -18,7 +18,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     user_id,
     title,
     done: false,
-    deadline: new Date(deadline),
+    deadline: new Date(deadline).getTime(),
   };
 
   await document.put({ TableName: "todo_list", Item: todo }).promise();
