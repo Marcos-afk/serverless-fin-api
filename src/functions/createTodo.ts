@@ -1,4 +1,5 @@
 import { APIGatewayProxyHandler } from "aws-lambda";
+import { document } from "src/database/dynamodb";
 import { v4 as uuidV4 } from "uuid";
 
 interface CreateTodoProps {
@@ -17,8 +18,10 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     user_id,
     title,
     done: false,
-    deadline,
+    deadline: new Date(deadline),
   };
+
+  await document.put({ TableName: "todo_list", Item: todo }).promise();
 
   return {
     statusCode: 201,
