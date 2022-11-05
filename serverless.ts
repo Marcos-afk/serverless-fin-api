@@ -41,6 +41,18 @@ const serverlessConfiguration: AWS = {
         },
       ],
     },
+    listAllTodos: {
+      handler: "src/functions/listAllTodos.handler",
+      events: [
+        {
+          http: {
+            path: "listAllTodos/{user_id}",
+            method: "get",
+            cors: true,
+          },
+        },
+      ],
+    },
   },
   package: { individually: true },
   custom: {
